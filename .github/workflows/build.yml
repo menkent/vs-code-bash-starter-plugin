@@ -18,11 +18,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
 
-      # keytar (optional dep of vsce) builds a native module and crashes npm ci
-      # on the runner; it is only needed for `vsce publish`, not for packaging.
-      - run: npm ci --omit=optional
+      # keytar (optional dep of vsce) builds a native module and is only needed
+      # for `vsce publish`, not for packaging.
+      - run: npm install --no-audit --no-fund --omit=optional
 
       - run: npm run check-types
 
