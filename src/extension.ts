@@ -82,12 +82,21 @@ function updateStatusBarVisibility(item: vscode.StatusBarItem): void {
   }
 }
 
+const DEFAULT_BUTTON_TITLE = '$(play) Run script';
+
+function updateStatusBarText(item: vscode.StatusBarItem): void {
+  const configured = vscode.workspace
+    .getConfiguration('bashRunner')
+    .get<string>('buttonTitle');
+  item.text = configured?.trim() ? configured : DEFAULT_BUTTON_TITLE;
+}
+
 export function activate(context: vscode.ExtensionContext): void {
   const statusBarItem = vscode.window.createStatusBarItem(
     vscode.StatusBarAlignment.Right,
     100
   );
-  statusBarItem.text = '$(play) Run script';
+  updateStatusBarText(statusBarItem);
   statusBarItem.tooltip = 'Bash Runner: run a script';
   statusBarItem.command = 'bashRunner.run';
   updateStatusBarVisibility(statusBarItem);
@@ -98,6 +107,11 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidChangeWorkspaceFolders(() =>
       updateStatusBarVisibility(statusBarItem)
     ),
+    vscode.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration('bashRunner.buttonTitle')) {
+        updateStatusBarText(statusBarItem);
+      }
+    }),
     vscode.window.onDidCloseTerminal((closed) => {
       if (closed === runnerTerminal) {
         runnerTerminal = undefined;

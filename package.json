@@ -3,7 +3,7 @@
   "displayName": "Bash Runner",
   "publisher": "local",
   "description": "Run per-repository shell commands from the status bar, in the integrated terminal.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -50,6 +50,11 @@
               }
             }
           }
+        },
+        "bashRunner.buttonTitle": {
+          "type": "string",
+          "default": "$(play) Run script",
+          "markdownDescription": "Text shown on the status bar Run control. Supports VS Code `$(icon)` codicons. Leave empty to use the default `$(play) Run script`."
         }
       }
     }
