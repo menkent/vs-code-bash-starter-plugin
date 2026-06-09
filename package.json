@@ -68,7 +68,8 @@
     "bump:patch": "npm version patch --no-git-tag-version",
     "bump:minor": "npm version minor --no-git-tag-version",
     "vsix": "vsce package --allow-missing-repository -o bash-runner.vsix",
-    "deploy": "npm run vsix && code --install-extension bash-runner.vsix --force"
+    "deploy": "npm run vsix && code --install-extension bash-runner.vsix --force",
+    "release": "npm version patch && git push --follow-tags"
   },
   "devDependencies": {
     "@types/node": "^20.x",
