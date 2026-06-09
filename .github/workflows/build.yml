@@ -19,9 +19,12 @@ jobs:
         with:
           node-version: '22'
 
+      # Work around npm 10.x "Exit handler never called!" crash on the runner.
+      - run: npm install -g npm@latest
+
       # keytar (optional dep of vsce) builds a native module and is only needed
       # for `vsce publish`, not for packaging.
-      - run: npm install --no-audit --no-fund --omit=optional
+      - run: npm ci --no-audit --no-fund --omit=optional
 
       - run: npm run check-types
 
