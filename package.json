@@ -1,0 +1,75 @@
+{
+  "name": "bash-runner",
+  "displayName": "Bash Runner",
+  "publisher": "local",
+  "description": "Run per-repository shell commands from the status bar, in the integrated terminal.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "license": "MIT",
+  "main": "./dist/extension.js",
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "bashRunner.run",
+        "title": "Bash Runner: Run Script"
+      }
+    ],
+    "configuration": {
+      "title": "Bash Runner",
+      "properties": {
+        "bashRunner.scripts": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Scripts shown in the Bash Runner quick-pick. Each entry is a label and an arbitrary shell command run in `/bin/bash` from the workspace root.",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "command"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Display name shown in the quick-pick."
+              },
+              "command": {
+                "type": "string",
+                "description": "Shell command to run (e.g. \"./build.sh\" or \"npm run build && ./deploy.sh\")."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "package": "node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "bump:patch": "npm version patch --no-git-tag-version",
+    "bump:minor": "npm version minor --no-git-tag-version",
+    "vsix": "vsce package --allow-missing-repository -o bash-runner.vsix",
+    "deploy": "npm run vsix && code --install-extension bash-runner.vsix --force"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.x",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "bashRunner.scripts": [
+    { "label": "Hello", "command": "echo 'Hello from Bash Runner'" },
+    { "label": "Bump minor", "command": "npm run bump:minor" },
+    { "label": "Package vsix", "command": "npm run vsix" },
+    { "label": "Deploy", "command": "npm run deploy" }
+  ]
+}
