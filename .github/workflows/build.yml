@@ -18,13 +18,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      # Work around npm 10.x "Exit handler never called!" crash on the runner.
-      - run: npm install -g npm@latest
+          cache: 'npm'
 
       # keytar (optional dep of vsce) builds a native module and is only needed
       # for `vsce publish`, not for packaging.
-      - run: npm ci --no-audit --no-fund --omit=optional
+      - run: npm ci --omit=optional
 
       - run: npm run check-types
 
