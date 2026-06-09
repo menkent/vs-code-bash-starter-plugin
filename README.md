@@ -20,6 +20,16 @@ shell commands and shows their output in the integrated terminal.
 Scripts can live in **User settings** (shared across all projects) or in a
 project's **`.vscode/settings.json`** (per-repository sets).
 
+### Customize the status bar control text
+
+Set `bashRunner.buttonTitle` to change the text on the status bar control.
+VS Code `$(icon)` codicons are supported; leave it empty for the default
+`$(play) Run script`.
+
+```json
+"bashRunner.buttonTitle": "$(rocket) Tasks"
+```
+
 ## Install
 
 The extension is packaged as a `.vsix` and installed once per VS Code instance —
